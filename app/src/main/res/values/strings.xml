@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Green Tech Lives</string>
+    <string name="textvoltage">textVoltage</string>
+    <string name="texType">textType</string>
+    <string name="texthealth">textHealth</string>
+    <string name="textchargingsource">textChargingSource</string>
+    <string name="temperature">Temperature</string>
+    <string name="chargingsource">ChargingSource</string>
+    <string name="textlevel">textLevel</string>
+    <string name="texttemperature">textTemperature</string>
+    <string name="textchargingstatus">textChargingStatus</string>
+    <string name="battery_type">Battery Type</string>
+    <string name="voltage">Voltage</string>
+    <string name="health">Health</string>
+    <string name="chargingstatus">ChargingStatus</string>
+    <string name="batteryremaing">batteryRemaing</string>
+    <string name="textbatterycapacity">TextBatteryCapacity</string>
+    <string name="todo">TODO</string>
+</resources>

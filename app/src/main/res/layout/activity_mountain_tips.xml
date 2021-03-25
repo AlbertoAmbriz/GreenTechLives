@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mountaintwo"
+    tools:context=".MountainTips">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textTip1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#79FFFFFF"
+            android:drawableLeft="@drawable/ic_bombilla"
+            android:text="Si usas tu dispositivo por mucho tiempo es recomendable bajar el brillo de la pantalla" />
+
+        <TextView
+            android:id="@+id/textTip2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#79FFFFFF"
+            android:drawableLeft="@drawable/ic_bombilla"
+            android:text="Desconecta cualquier aparato electrónico que no estes usando" />
+
+        <TextView
+            android:id="@+id/textTip3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#79FFFFFF"
+            android:text="Apaga las luces de las habitaciones que esten vacías y recuerda usar focos ahorradores de energía"
+            app:drawableLeftCompat="@drawable/ic_bombilla" />
+
+        <TextView
+            android:id="@+id/textTip4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#79FFFFFF"
+            android:text="Si tienes la posibilidad de no usar tu automóvil, viaja en bicicleta o patines, y si el tranporte público lo permite haz uso de el cuando sea posible"
+            app:drawableLeftCompat="@drawable/ic_bombilla" />
+
+        <TextView
+            android:id="@+id/textTip5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#79FFFFFF"
+            android:drawableLeft="@drawable/ic_bombilla"
+            android:text="Toma en cuenta programas locales e reciclaje y desecho en tu ciudad" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
