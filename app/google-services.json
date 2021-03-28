@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "988752874333",
+    "project_id": "greentechlives-10a3b",
+    "storage_bucket": "greentechlives-10a3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988752874333:android:5c2e4a8bf75a108918b6b4",
+        "android_client_info": {
+          "package_name": "com.example.greentechlives"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988752874333-sd0ctlmulmeujnhdi9aglpm3irc58gru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuiPzvhe0u_4ESria-ICnFRZ9_nk4OTmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988752874333-sd0ctlmulmeujnhdi9aglpm3irc58gru.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

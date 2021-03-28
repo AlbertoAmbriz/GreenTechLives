@@ -7,12 +7,24 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -21,10 +33,6 @@ public class MainActivity extends AppCompatActivity {
     IntentFilter intentFilter;
     Button btnInfo, btnGoDonate, btnTips;
     TextView level, voltage, batteryRemaining, batteryCapacity, currentNow, carbonFoot, energyRemaining;
-
-
-    OpenHelperGreenTechLives ayuda = new OpenHelperGreenTechLives(this, "_DATABASE", null, 1);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +45,18 @@ public class MainActivity extends AppCompatActivity {
         batteryCapacity = findViewById(R.id.textBatteryCapacity);
         currentNow = findViewById(R.id.textCurrentNow);
         carbonFoot = findViewById(R.id.textCarbonFoot);
-//        energyRemaining = findViewById(R.id.textEnergyRemaining);
 
         btnInfo = (Button)findViewById(R.id.btnInfo);
         btnGoDonate = (Button)findViewById(R.id.btnGoDonate);
         btnTips = (Button)findViewById(R.id.btnTips);
+
+        intentFilterAndBroadcast();
 
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MountainInfo.class);
                 startActivity(i);
-
             }
         });
 
@@ -57,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MountainDonate.class);
                 startActivity(i);
-
             }
         });
 
@@ -66,15 +73,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MountainTips.class);
                 startActivity(i);
-
             }
         });
-
-
-        intentFilterAndBroadcast();
-
     }
-
 
     private void intentFilterAndBroadcast() {
         intentFilter = new IntentFilter();
@@ -88,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
                     float voltTemp = (float) (intent.getIntExtra("voltage", 0) * 0.001);
                     voltage.setText(voltTemp + " V");
-
 
                     BatteryManager mBatteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
 
@@ -108,17 +108,29 @@ public class MainActivity extends AppCompatActivity {
                     double carbonFootTemp = ((batteryRemainingTemp - ((remainCapacity  * batteryRemainingTemp) / 100)) * (voltTemp) * (0.000000001)) * 0.0004999;
                     carbonFoot.setText("Has producido " + carbonFootTemp + " gramos de CO2");
 
-                    ayuda._open();
-                    ayuda.appendData(Integer.valueOf(String.valueOf(level.getText())), Float.valueOf((float) carbonFootTemp));
-                    //   ayuda.appenDataDos(Integer.valueOf(String.valueOf(level.getText())), Float.valueOf((float) carbonFootTemp));
-                    ayuda._close();
-
+                    FirebaseFirestore db =FirebaseFirestore.getInstance();
+                    Map<String, Object> dataToSave = new HashMap<>();
+                    dataToSave.put("Nivel_de_bateria", String.valueOf(level.getText()));
+                    dataToSave.put("CO2_producido", carbonFootTemp);
+                    dataToSave.put("Date", new Timestamp(new Date()));
+                    db.collection("reporte").add(dataToSave).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("GreenTechLives", "Document snapshot written with ID: " + documentReference.getId());
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("GreenTechLives", "Error adding document", e);
+                        }
+                    });
 
                 }
+
             }
+
         };
     }
-
 
     @Override
     protected void onStart() {
