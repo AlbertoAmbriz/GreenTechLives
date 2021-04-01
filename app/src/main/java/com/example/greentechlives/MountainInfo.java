@@ -46,8 +46,6 @@ public class MountainInfo extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
 
-
-
         }
 
     }

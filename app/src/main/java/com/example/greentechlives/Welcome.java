@@ -12,8 +12,6 @@ public class Welcome extends AppCompatActivity {
     private Button mLogIn;
     private Button mPleaseRegister;
 
-//    FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +37,5 @@ public class Welcome extends AppCompatActivity {
         });
 
     }
-
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-//        if (mAuth.getCurrentUser() != null) {
-//            startActivity(new Intent(Welcome.this, MainActivity.class));
-//            finish();
-//        }
-//    }
 
 }

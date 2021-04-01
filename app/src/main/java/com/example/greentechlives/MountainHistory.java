@@ -45,10 +45,6 @@ public class MountainHistory extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         mChart = (LineChart)findViewById(R.id.linechart);
-
-//        mChart.setOnChartGestureListener(MountainHistory.this);
-//        mChart.setOnChartValueSelectedListener(MountainHistory.this);
-
         mChart.setDragEnabled(true);
         mChart.setScaleEnabled(false);
 
@@ -89,19 +85,6 @@ public class MountainHistory extends AppCompatActivity {
                         }
                     }
                 });
-
-//        CollectionReference co2 = db.collection("reporte");
-//
-//        ArrayList<Entry> yValues = new ArrayList<>();
-//
-//        yValues.add(new Entry(0, 65));
-//        yValues.add(new Entry(1, 60));
-//        yValues.add(new Entry(2, 40));
-//        yValues.add(new Entry(3, 80));
-//        yValues.add(new Entry(4, 65));
-//        yValues.add(new Entry(5, 65));
-
-
 
     }
 }
