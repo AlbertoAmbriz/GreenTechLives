@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.greentechlives">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,11 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GreenTechLives">
-        <activity android:name=".MountainDonate"></activity>
+        <activity android:name=".LonInToHome"></activity>
+        <activity android:name=".Auth" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MountainDonate" />
         <activity android:name=".MountainTips" />
         <activity android:name=".MountainInfo" />
         <activity android:name=".MountainHistory" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

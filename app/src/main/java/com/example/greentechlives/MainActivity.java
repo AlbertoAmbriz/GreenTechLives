@@ -19,6 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -31,8 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
     BroadcastReceiver batteryBroadcast;
     IntentFilter intentFilter;
-    Button btnInfo, btnGoDonate, btnTips;
+    Button btnInfo, btnGoDonate, btnTips, btnHistory;
     TextView level, voltage, batteryRemaining, batteryCapacity, currentNow, carbonFoot, energyRemaining;
+
+    private FirebaseAuth mAuth;
+    DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
         btnInfo = (Button)findViewById(R.id.btnInfo);
         btnGoDonate = (Button)findViewById(R.id.btnGoDonate);
         btnTips = (Button)findViewById(R.id.btnTips);
+        btnHistory = (Button)findViewById(R.id.btnHistory);
 
         intentFilterAndBroadcast();
+        mAuth = FirebaseAuth.getInstance();
 
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MountainTips.class);
+                startActivity(i);
+            }
+        });
+
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MountainHistory.class);
                 startActivity(i);
             }
         });
@@ -108,11 +125,14 @@ public class MainActivity extends AppCompatActivity {
                     double carbonFootTemp = ((batteryRemainingTemp - ((remainCapacity  * batteryRemainingTemp) / 100)) * (voltTemp) * (0.000000001)) * 0.0004999;
                     carbonFoot.setText("Has producido " + carbonFootTemp + " gramos de CO2");
 
-                    FirebaseFirestore db =FirebaseFirestore.getInstance();
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
                     Map<String, Object> dataToSave = new HashMap<>();
                     dataToSave.put("Nivel_de_bateria", String.valueOf(level.getText()));
-                    dataToSave.put("CO2_producido", carbonFootTemp);
+                    dataToSave.put("CO2_producido", String.valueOf(carbonFootTemp));
                     dataToSave.put("Date", new Timestamp(new Date()));
+                    dataToSave.put("uid", mAuth.getUid());
                     db.collection("reporte").add(dataToSave).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
@@ -136,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         registerReceiver(batteryBroadcast,intentFilter);
+
     }
 
     @Override
